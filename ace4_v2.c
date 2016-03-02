@@ -12,6 +12,10 @@
  *		are tokenised so that we can control the parameters of 'exit'. Quick hack to
  *		begin with but probably be better using a case statement later when dealing with
  * 		multiple commands.
+ *  v2.0 29/02/2016 Move tokeniser out of main and gave it its own funstion to tidy up and make 
+ * 		it easier to edit in future. Started stage 2. Main problem was with the wait 
+ * 		function as it was not importing using the sys/types.h as expected so had to use
+ * 		sys/wait.h
  *************************************************************************/
 
 #define VERSION "ACE2 (v3.0) by Stephen Corcoran, Katie Reid, Carla Rankin, Stephen Gray, Rachel Maley. Updated: 11/02/2016\n"
