@@ -20,6 +20,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 
 #define Max_Input 512
 #define pointer ">"
@@ -95,5 +96,6 @@ int main(){
 
 	tokeniser();
 	execProcess(userInput);
+	return 0;
 	
 }
