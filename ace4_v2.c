@@ -12,10 +12,6 @@
  *		are tokenised so that we can control the parameters of 'exit'. Quick hack to
  *		begin with but probably be better using a case statement later when dealing with
  * 		multiple commands.
- *  v2.0 29/02/2016 Move tokeniser out of main and gave it its own funstion to tidy up and make 
- * 		it easier to edit in future. Started stage 2. Main problem was with the wait 
- * 		function as it was not importing using the sys/types.h as expected so had to use
- * 		sys/wait.h
  *************************************************************************/
 
 #define VERSION "ACE2 (v3.0) by Stephen Corcoran, Katie Reid, Carla Rankin, Stephen Gray, Rachel Maley. Updated: 11/02/2016\n"
@@ -25,6 +21,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <stdlib.h>
 
 #define Max_Input 512
 #define pointer ">"
@@ -42,7 +39,7 @@ char *getUserInput(void){
 	if('\n' == input[0]){
 		return("");
 	}
-	return input;
+		return input;
 	}
 	exit(0);
 	return(0);
@@ -51,21 +48,24 @@ char *getUserInput(void){
 
 void execProcess(char **userInput){
 	
+	int status;
 	pid_t pid;
-		/* fork a child process */
-		pid = fork();
+
+	/* fork a child process */
+	pid = fork();
 		
-		if (pid < 0) { /* error occurred */
+	if (pid < 0) { /* error occurred */
 		printf("Fork Failed");
 		exit(1);
 	}
-	else if (pid == 0) { /* child process */
+	
+	if (pid == 0) { /* child process */
 		execvp(userInput[0], userInput);
+		printf("Error");
 	}
 	else { /* parent process */
 		/* parent will wait for the child to complete */
-		wait(NULL);
-		printf("Child Complete");
+		while(wait(&status)!=pid);
 	}	
 }
 
@@ -94,9 +94,8 @@ void tokeniser(){
 		}
 	}
 }
-	
 
-int main(){
+int main(int args, char** userInput){
 
 	tokeniser();
 	execProcess(userInput);
