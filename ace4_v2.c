@@ -15,11 +15,16 @@
  *************************************************************************/
 
 #define VERSION "ACE2 (v3.0) by Stephen Corcoran, Katie Reid, Carla Rankin, Stephen Gray, Rachel Maley. Updated: 11/02/2016\n"
+
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
 
 #define Max_Input 512
 #define pointer ">"
+
+char userInput[Max_Input];
 
 void exit(int status); /*function for exiting the program*/
 
@@ -42,41 +47,24 @@ char *getUserInput(void){
 void execProcess(char **userInput){
 	
 	pid_t pid;
-	int status;
-	
-	/*fork a child process*/
-	pid = fork();
-	
-	if(pid < 0){
-		printf("fork failed");
+		/* fork a child process */
+		pid = fork();
+		
+		if (pid < 0) { /* error occurred */
+		printf("Fork Failed");
 		exit(1);
 	}
-	else if(pid == 0){
-		
-		if(execvp(*userInput[0], userInput) < 0){ /* not sure of the if statement. userInput[0] should 
-								contain the command the user want */		
-		printf("exec failed");
-		exit(1);
-		}
+	else if (pid == 0) { /* child process */
+		execvp(userInput[0], userInput);
 	}
-	else{
-		
-		
-		while(wait(&status)!=pid);	
-		
-	}
-	
-	
+	else { /* parent process */
+		/* parent will wait for the child to complete */
+		wait(NULL);
+		printf("Child Complete");
+	}	
 }
 
-
-
-
-
-
-int main(){
-	char userInput[Max_Input];
-	//int inpErr;
+void tokeniser(){
 	char s[50];
 	char tokeniser[20] = "\t \n <>&|;";
 	char *p = strtok(s, tokeniser);
@@ -86,28 +74,26 @@ int main(){
 
 	while(1){
 		printf(pointer);
-		
 		strcpy(userInput, getUserInput());
-/*
-		inpErr = strncmp(userInput,"0",1); //If the getUserInput() returns 0 then there has been an input error
-		if(inpErr == 0){
-			printf("Input invalid\n");
+		p = strtok(userInput, tokeniser);
+		
+		if (p != NULL){	
+			ex = strncmp(p,"exit",4);
+			if(ex == 0) {
+				exit(0);
+			}
 		}
-*/
-    p = strtok(userInput, tokeniser);
-if (p != NULL){	
-		ex = strncmp(p,"exit",4);
-		if(ex == 0)
-		{
-			exit(0);
-		}
-}
 		while (p != NULL){
-      printf ("(%s)\n",p);
-	
-      p = strtok (NULL, tokeniser);
-    }
+      			printf ("(%s)\n",p);
+			p = strtok (NULL, tokeniser);
+		}
 	}
+}
 	
-	return 0;
+
+int main(){
+
+	tokeniser();
+	execProcess(userInput);
+	
 }
