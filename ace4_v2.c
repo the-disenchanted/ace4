@@ -39,6 +39,41 @@ char *getUserInput(void){
 	
 }
 
+void execProcess(char **userInput){
+	
+	pid_t pid;
+	int status;
+	
+	/*fork a child process*/
+	pid = fork();
+	
+	if(pid < 0){
+		printf("fork failed");
+		exit(1);
+	}
+	else if(pid == 0){
+		
+		if(execvp(*userInput[0], userInput) < 0){ /* not sure of the if statement. userInput[0] should 
+								contain the command the user want */		
+		printf("exec failed");
+		exit(1);
+		}
+	}
+	else{
+		
+		
+		while(wait(&status)!=pid);	
+		
+	}
+	
+	
+}
+
+
+
+
+
+
 int main(){
 	char userInput[Max_Input];
 	//int inpErr;
