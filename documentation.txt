@@ -1,0 +1,22 @@
+/************************Revision History*********************************
+ *
+ *  v1.1 18/2/2016 When the user inputs more than 512 characters the
+ *		input is broken into blocks of 512 and then each block printed
+ *	        seperately rather than only the first 512 being printed. 
+ *
+ *  v1.2 25/02/2016 Removed characters from parsing that weren't needed
+ *		and removed the error message for a blank line as Sotirios    
+ *		wasn't happy with it. Created a variable 'tokeniser' to hold the 
+ *              parsing characters so that it is easier to make changes in the future. 
+ *		I have added moved the string compare method to the place where the 
+ *		strings are tokenised so that we can control the parameters of 'exit'. 
+ *		Quick hack to begin with but probably be better using a case statement 
+ *		later when dealing with multiple commands.
+ *
+ *  v2.0
+ *
+ *  v2.1 29/02/2016 Move tokeniser out of main and gave it its own funstion to tidy up 
+ *		and make it easier to edit in future. Started stage 2. Main problem was 
+ *		with the wait function as it was not importing using the sys/types.h as 
+ *		expected so had to use sys/wait.h.
+ ******************************************************************************/
