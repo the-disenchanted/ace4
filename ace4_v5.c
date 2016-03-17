@@ -16,8 +16,6 @@ void exit(int status); /*function for exiting the program*/
 
 void executeCMD(){
 
-	printf("exc");
-
 	int status;
 	pid_t pid;
 	/* fork a child process */
@@ -39,17 +37,24 @@ void executeCMD(){
 	}	
 }
 
+
+
+
 void runInternal(){
 	int ex;
-	for(int i = 0; i < MAX - 1; i++) {
+	int setp;
+	int i;
+	for(i = 0; i < MAX - 1; i++) {
 		if(par[i] != NULL) {
 			ex = strcmp(par[i],"exit");
-			if(ex == 0) {
-				int goToHome = setenv("Home", home);  
-				if (getcwd() == goToHome){
-					exit(0);
-				}
+			setp = strcmp(par[0], "getpath");
+
+			if(setp == 0) {
+			
 			}
+			if(ex == 0) {
+				exit(0);
+}
 			else{
 				executeCMD();
 			}
@@ -78,22 +83,23 @@ void tokenise(){
 void getInput(){
 	/*char input[1000];*/
 
-while(1){
-	printf(pointer);
-	if(fgets(input, MAX, stdin) == NULL){
-		exit(0);
+	while(1){
+		printf(pointer);
+		if(fgets(input, MAX, stdin) == NULL){
+			exit(0);
+		}
+		tokenise(input);
 	}
-	tokenise(input);
 }
-}
+
 
 
 int main(){
-	const char* path = getenv("PATH");
+const char* path = getenv("PATH");
 	home = getenv("HOME");
-	int chdir(const char *home);
+	chdir(home);
 	printf("PATH :%s\n",(path!=NULL)? path : "getenv returned NULL");	
-	printf("Home: %d ", *home); 	
+	printf("Home: %s\n ",home); 	
 	getInput();
 	return(0);
 }
