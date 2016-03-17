@@ -68,7 +68,11 @@ void runInternal(){
 				}
 			}
 			else if(ex == 0) {
+				int restore = setenv(home, home, 0);
+				home = getenv("HOME");
+				printf("HOME: %s\n", home);
 				exit(0);
+				
 			}
 			else{
 				executeCMD();
