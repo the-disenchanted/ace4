@@ -19,4 +19,9 @@
  *		and make it easier to edit in future. Started stage 2. Main problem was 
  *		with the wait function as it was not importing using the sys/types.h as 
  *		expected so had to use sys/wait.h.
+ *
+ *  v3.0 10/03/2016 Stage 3 implementation started but very broken...
+ * 
+ *  v3.1 Stage 3 almost working other than getPath breaking after setPath has been
+ *       used. But restoring to home works when the program exits.  
  ******************************************************************************/
