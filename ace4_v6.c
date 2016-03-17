@@ -37,18 +37,16 @@ void executeCMD(){
 	}	
 }
 
-
-
-
 void runInternal(){
 	int ex;
 	int getp;
+	int setp;
 	int i;
 	for(i = 0; i < MAX - 1; i++) {
 		if(par[i] != NULL) {
 			ex = strcmp(par[i],"exit");
 			getp = strcmp(par[0], "getpath");
-
+			setp = strcmp(par[0], "setpath");
 			if(getp == 0) {
 				if(par[1] != NULL){
 					printf("%s is an Unknown command\n", *par);
@@ -56,6 +54,17 @@ void runInternal(){
 				else{
 					const char* path = getenv("PATH");
 					printf("PATH :%s\n",(path!=NULL)? path : "getenv returned NULL");
+				}
+			}
+			else if(setp ==0){
+				if(par[1] == NULL){
+					printf("%s is an Unknown command\n", *par);
+				}
+				else{
+					int newPath = setenv(par[1], par[1], 0);
+					printf("%d", newPath);
+					/*const char* path = getenv("PATH");
+					printf("PATH :%s\n",(path!=NULL)? path : "getenv returned NULL");*/
 				}
 			}
 			else if(ex == 0) {
@@ -97,8 +106,6 @@ void getInput(){
 		tokenise();
 	}
 }
-
-
 
 int main(){
 const char* path = getenv("PATH");
