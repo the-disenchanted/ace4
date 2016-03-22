@@ -81,10 +81,32 @@ promptBuff = NULL;
 			
 			result= 0;
 			if(par[1] == NULL){
-				printf("expected arguement");
+				chdir("..");
 			}
 			else{
-				chdir(par[1]);
+				result = chdir(par[1]);
+				if (getcwd(promptBuff, sizeof(par[1])) != NULL);
+				else{
+					printf("FAILED\n");
+				}
+				if(result == 0){
+					printf("Directory changed to %s\n", par[1]);
+				}	
+				else{
+					switch(result){
+					case EACCES: perror("Permission denied");
+						break;
+					case EIO:	 perror("An input output error occured");
+						break;
+					case ENAMETOOLONG: perror("Path is too long");
+						break;
+					case ENOTDIR: perror("A component of path not a directory"); 
+						break;
+					case ENOENT: perror("No such file or directory"); printf("enoent\n");
+      
+					default: printf("Couldn't change directory to %s", par[1] ); 
+					}
+				}
 				
 			}
 			break;
