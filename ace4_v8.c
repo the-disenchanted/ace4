@@ -14,11 +14,41 @@ char input[1000];
 const char* home;
 char history[20][MAX];
 int historyCount;
+int histLoop = 0;
 
 
-char *inter[] = {"exit", "getpath", "setpath", "cd","!"};
+char *inter[] = {"exit", "getpath", "setpath", "cd","history"};
 
 void exit(int status); /*function for exiting the program*/
+
+void printHistory(){
+	int i;
+	if(histLoop == 0){
+		for(i = 0; i< historyCount;i++){
+			printf("%i %s",i+1,history[i]);
+		}
+	}
+	else{
+	for(i = 0; i<= 20;i++){
+			printf("%i %s",i+1,history[i]);
+		}
+	}
+
+
+	
+}
+
+void saveHistory(){
+
+	
+	strcpy(history[historyCount],input);
+	historyCount++;
+	if(historyCount ==19){
+		histLoop = 1;
+		historyCount = 0;
+	}
+}
+
 
 void executeCMD(){
 
@@ -110,10 +140,9 @@ promptBuff = NULL;
 				
 			}
 			break;
-		/*case 4:
-			if(par[1] > -1 && < 20){
-				
-			}*/
+		case 4:
+			printHistory();
+			
 		}	
 		
 	
@@ -158,22 +187,7 @@ void tokenise(){
 	run();
 }
 
-void printHistory(){
-	int i;
-	for(i = 0; i<20;i++){		
-	printf("%s",history[i]);
-	}
-}
 
-void saveHistory(){
-
-	
-	strcpy(history[historyCount],input);
-	historyCount++;
-	if(historyCount ==19){
-		historyCount = 0;
-	}
-}
 
 void getInput(){
 	/*char input[1000];*/
