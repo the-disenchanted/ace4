@@ -12,9 +12,11 @@
 char *par[MAX];
 char input[1000];
 const char* home;
+char history[20][MAX];
+int historyCount;
 
 
-char *inter[] = {"exit", "getpath", "setpath", "cd"};
+char *inter[] = {"exit", "getpath", "setpath", "cd","!"};
 
 void exit(int status); /*function for exiting the program*/
 
@@ -85,9 +87,14 @@ promptBuff = NULL;
 				chdir(par[1]);
 				
 			}
+			break;
+		/*case 4:
+			if(par[1] > -1 && < 20){
+				
+			}*/
 		}	
 		
-	memset(par,0,sizeof(par));
+	
 }
 
 void run(){
@@ -107,6 +114,8 @@ void run(){
 		}
 	}
 	if(in == 0) executeCMD();
+	memset(par,0,sizeof(par));
+
 }
 
 void tokenise(){
@@ -127,6 +136,23 @@ void tokenise(){
 	run();
 }
 
+void printHistory(){
+	int i;
+	for(i = 0; i<20;i++){		
+	printf("%s",history[i]);
+	}
+}
+
+void saveHistory(){
+
+	
+	strcpy(history[historyCount],input);
+	historyCount++;
+	if(historyCount ==19){
+		historyCount = 0;
+	}
+}
+
 void getInput(){
 	/*char input[1000];*/
 
@@ -134,6 +160,10 @@ void getInput(){
 		printf(pointer);
 		if(fgets(input, MAX, stdin) == NULL){
 			exit(0);
+		}
+		int t = strncmp(input, "!", 1);
+		if( t != 0){
+		saveHistory();
 		}
 		tokenise();
 	}
