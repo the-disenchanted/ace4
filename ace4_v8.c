@@ -13,7 +13,7 @@ char *par[MAX];
 char input[1000];
 const char* home;
 char history[20][MAX];
-int historyCount;
+int historyCount=0;
 int histLoop = 0;
 
 
@@ -23,14 +23,15 @@ void exit(int status); /*function for exiting the program*/
 
 void printHistory(){
 	int i;
+	int j;
 	if(histLoop == 0){
 		for(i = 0; i< historyCount;i++){
 			printf("%i %s",i+1,history[i]);
 		}
 	}
 	else{
-	for(i = 0; i<= 20;i++){
-			printf("%i %s",i+1,history[i]);
+	for(j = 0; j< 20;j++){
+			printf("%i %s",j+1,history[j]);
 		}
 	}
 
@@ -43,7 +44,7 @@ void saveHistory(){
 	
 	strcpy(history[historyCount],input);
 	historyCount++;
-	if(historyCount ==19){
+	if(historyCount >19){
 		histLoop = 1;
 		historyCount = 0;
 	}
@@ -186,12 +187,22 @@ void tokenise(){
 	}
 	run();
 }
+void historyCommand(){
 
+	char *ptr;
+	long ret;
+printf("\n%s\n", input);
+
+	ret = strtol(input,&ptr,10);
+	printf("RET IS: %ld", ret);
+
+
+}
 
 
 void getInput(){
 	/*char input[1000];*/
-
+	
 	while(1){
 		printf(pointer);
 		if(fgets(input, MAX, stdin) == NULL){
@@ -201,7 +212,10 @@ void getInput(){
 		if( t != 0){
 		saveHistory();
 		}
-		tokenise();
+		if(t == 0){
+			historyCommand();
+		}
+		else tokenise();
 	}
 }
 
