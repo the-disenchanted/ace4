@@ -209,7 +209,7 @@ void historyCommand(){
 	choice = ret;
 	printf("\nCHOICE IS:%i\n",choice);
 	choice--;
-	if(histLoop == 0 && choice >= 0 && choice <= historyCount){
+	if(histLoop == 0 && choice > 0 && choice <= historyCount){
 		
 			strcpy(input,history[choice]);
 			printf("\nINPUT IS:%s\n",input);
