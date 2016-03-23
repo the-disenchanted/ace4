@@ -224,7 +224,7 @@ void historyCommand(){
 	else if(histLoop == 0 && choice < 0){
 		printf("CHOICE: %i\n", choice);
 		printf("HISCOUNT: %i\n", historyCount);
-		choice = historyCount + choice +1;
+		choice = historyCount + choice;
 		
 		printf("INPUT: %s\n", input);
 		printf("CHOICE: %i\n", choice);
