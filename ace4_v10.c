@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <ctype.h>
 
 #define MAX 512
 #define pointer ">"
@@ -208,7 +209,7 @@ void historyCommand(){
 	choice = ret;
 	printf("\nCHOICE IS:%i\n",choice);
 	choice--;
-	if(histLoop == 0 && choice > 0 && choice <= historyCount){
+	if(histLoop == 0 && choice >= 0 && choice <= historyCount){
 		
 			strcpy(input,history[choice]);
 			printf("\nINPUT IS:%s\n",input);
@@ -233,8 +234,30 @@ void getInput(){
 		if( t != 0){
 		saveHistory();
 		}
-		if(t == 0){
+		if(t == 0){/*
+			if(input[3] == '\0' || input[2] == '\0' || input[4] == '\0'){
+				if((isdigit(input[1]) && input[2] == '\0') || (isdigit(input[1]) && isdigit(input[2])	)){
+			printf("hehEHE111");
 			historyCommand();
+				}
+			}*/
+
+
+
+			if(input[3] == '\0'){
+				
+				if(isdigit(input[1])){
+					
+					historyCommand();
+				}
+
+			}
+			else if(input[4] == '\0'){
+				if(isdigit(input[1]) && isdigit(input[2])){
+					
+					historyCommand();
+				}
+			}
 		}
 		else tokenise();
 	
