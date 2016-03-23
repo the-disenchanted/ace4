@@ -44,9 +44,14 @@ void printHistory(){
 
 void saveHistory(){
 
-	
-	strcpy(history[historyCount],input);
+	int i;
+	for(i = 19;i >=0; i-- ){
+		strcpy(history[i+1],history[i]);
+	}
+
+	strcpy(history[0],input);
 	historyCount++;
+
 	if(historyCount >19){
 		histLoop = 1;
 		historyCount = 0;
@@ -221,7 +226,7 @@ if(k!=0){
 			tokenise();
 	}
 	else{
-		printf("%s : event not found",input);
+		printf("%s : event not found here 4",input);
 	}
 }
 else{
@@ -241,10 +246,13 @@ else{
 			tokenise();
 			}
 	}
-	else if(histLoop == 1 && choice > 0 && choice < 11){
+	else if(histLoop == 1 && choice > 0 && choice < 20){
 			i = 20 - choice;
+			i--;
+			if(i>0){
 			strcpy(input,history[i]);
-			tokenise();
+			tokenise();	
+			}
 	}
 
 }
@@ -283,7 +291,7 @@ void getInput(){
 					historyCommand();
 				}
 				else{
-					printf("%s : event not found",input);
+					printf("%s : event not found here 1",input);
 				}
 			}
 
@@ -293,7 +301,7 @@ void getInput(){
 					historyCommand();
 				}
 				else{
-					printf("%s : event not found",input);
+					printf("%s : event not found here 2",input);
 				}
 			}
 
@@ -306,7 +314,7 @@ void getInput(){
 					historyCommand();
 				}
 				else{
-				printf("%s : event not found",input);
+				printf("%s : event not found here 3",input);
 			}
 
 			}
