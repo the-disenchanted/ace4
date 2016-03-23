@@ -213,12 +213,17 @@ void historyCommand(){
 		
 			strcpy(input,history[choice]);
 			printf("\nINPUT IS:%s\n",input);
+			tokenise();
 	}
 	else if(histLoop == 1 && choice > 0 && choice < 21){
 			strcpy(input,history[choice]);
 			printf("\nINPUT IS:%s\n",input);
+			tokenise();
 	}
-	tokenise();
+	else{
+		printf("%s : event not found",input);
+	}
+	
 }
 
 
@@ -250,18 +255,27 @@ void getInput(){
 					
 					historyCommand();
 				}
-
+				else{
+					printf("%s : event not found",input);
+				}
 			}
+
 			else if(input[4] == '\0'){
 				if(isdigit(input[1]) && isdigit(input[2])){
 					
 					historyCommand();
 				}
+				else{
+					printf("%s : event not found",input);
+				}
+			}
+			else{
+				printf("%s : event not found",input);
 			}
 		}
 		else tokenise();
 	
-	}
+		}
 }
 
 int main(){
