@@ -184,7 +184,7 @@ promptBuff = NULL;
 			
 			result= 0;
 			if(par[1] == NULL){
-				chdir("..");
+				chdir(home);
 			}
 			else{
 				result = chdir(par[1]);
