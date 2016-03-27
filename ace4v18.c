@@ -16,7 +16,7 @@ char home[MAX];
 char history[20][MAX];
 int historyCount=0;
 int histLoop = 0;
-char *aliases[1][10][2];
+char *aliases[10][2];
 int aliasCounter=0;
 
 char *inter[] = {"exit", "getpath", "setpath", "cd","history", "alias"};
