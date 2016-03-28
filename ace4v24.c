@@ -205,11 +205,19 @@ void removeAlias() {
 	}
 	
 	if(inArray == 1) { 
-		i = position;
+		if(aliasCounter == 1) {
+			strcpy(aliasNames[0], " ");
+			strcpy(aliasCommands[0], " ");
+		}
+		else {
+			i = position;
 		
-		for(i = i; i < aliasCounter-1; i++) {
-			strcpy(aliasNames[i], aliasNames[i+1]);
-			strcpy(aliasCommands[i], aliasCommands[i+1]);				
+			for(i = i; i < aliasCounter-1; i++) {
+				strcpy(aliasNames[i], aliasNames[i+1]);
+				strcpy(aliasCommands[i], aliasCommands[i+1]);				
+			}
+			strcpy(aliasNames[aliasCounter], " ");
+			strcpy(aliasCommands[aliasCounter], " ");	
 		}
 		aliasCounter--;	
 		printf("\nalias has been removed");
