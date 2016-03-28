@@ -169,10 +169,9 @@ void addAlias() {
 		if(inArray == 1) {
 			j = 2;
 			while(par[j] != NULL) {
-				printf("ac %s par %s",aliasCommands[position], par[j]);
-				strcpy(aliasCommands[position], " ");
+				strcpy(aliasCommands[position], "");
 				strcat(aliasCommands[position], par[j]);
-				strcat(aliasCommands[position], " ");
+				//strcat(aliasCommands[position], " ");
 				j++;
 			}	
 			printf("Overriding alias");	
@@ -181,10 +180,10 @@ void addAlias() {
 			printf("\naliasCounter %d", aliasCounter);
 			strcpy(aliasNames[aliasCounter], par[1]);
 			i = 2;
-			strcpy(aliasCommands[aliasCounter], " ");
+			strcpy(aliasCommands[aliasCounter], "");
 			while(par[i] != NULL) {				
 				strcat(aliasCommands[aliasCounter], par[i]);
-				strcat(aliasCommands[aliasCounter], " ");
+				//strcat(aliasCommands[aliasCounter], " ");
 				i++;
 			}	
 			aliasCounter++;
@@ -367,6 +366,12 @@ void tokenise(){
 		++i;
 		p = strtok(NULL, tokeniser);
 	}
+	for(i = 0;i < aliasCounter;i++){
+		if(strcmp(par[0],aliasNames[i]) == 0) {
+			strcpy(par[0], aliasCommands[i]);
+		}
+	}		
+
 	
 //printf("%s", par[1]);
 	run();
