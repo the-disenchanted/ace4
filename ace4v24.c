@@ -198,7 +198,7 @@ void removeAlias() {
 	int inArray = 0;
 	
 	for(i = 0; i < aliasCounter; i++) {		
-		if(strcmp(aliasCommands[i], par[1]) == 0) {		
+		if(strcmp(aliasNames[i], par[1]) == 0) {		
 			inArray = 1;
 			position = i;	
 		}
