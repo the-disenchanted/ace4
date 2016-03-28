@@ -159,27 +159,33 @@ void executeCMD(){
 }
 
 void addAlias() {
-	int i, j; 
+	int i, j, position; 
 	int inArray = 0;
 	if(aliasCounter < 10) {
 		for(i = 0; i < aliasCounter; i++) {
-			if(strcmp(aliasNames[i], par[1]) == 0) {
+			if(strcmp(aliasNames[i], par[1]) == 0) {				
 				inArray = 1;
-				j = 2;
-				strcpy(aliasCommands[i], " ");
-				while(par[j] != NULL) {
-					strcat(aliasCommands[i], par[j]);
-					strcat(aliasCommands[i], " ");
-					j++;
-				}	
-				printf("Overriding alias");	
+				position = i;
+				
 			}
+		}
+		if(inArray == 1) {
+			j = 2;
+			while(par[j] != NULL) {
+				printf("ac %s par %s",aliasCommands[position], par[j]);
+				strcpy(aliasCommands[position], " ");
+				strcat(aliasCommands[position], par[j]);
+				strcat(aliasCommands[position], " ");
+				j++;
+			}	
+			printf("Overriding alias");	
 		}
 		if(inArray == 0) {
 			printf("\naliasCounter %d", aliasCounter);
 			strcpy(aliasNames[aliasCounter], par[1]);
 			i = 2;
-			while(par[i] != NULL) {
+			strcpy(aliasCommands[aliasCounter], " ");
+			while(par[i] != NULL) {				
 				strcat(aliasCommands[aliasCounter], par[i]);
 				strcat(aliasCommands[aliasCounter], " ");
 				i++;
@@ -506,37 +512,30 @@ if(choice > 0 && choice < 10){
 
 void getInput(){
 	/*char input[1000];*/
-	
+	int i;
 	
 	while(1){
 		printf(pointer);
 		if(fgets(input, MAX, stdin) == NULL){
-			exit(0);
+		exit(0);
 		}
-
-		for(int i = 0;i < 10;i++){
-			int len = strlen(input);
-			int ret = strncmp(input,aliasNames[i],len-1);
-				
-				
-			if(ret == 0){
-				strcpy(input,aliasCommands[i]);
-				
-			}
+		for(i = 0;i < 10;i++){
+		int len = strlen(input);
+		int ret = strncmp(input,aliasNames[i],len-1);
+		if(ret == 0){
+		strcpy(input,aliasCommands[i]);
 		}
-
-
+		}
 		int t = strncmp(input, "!", 1);
 		int k = strncmp(input, "!-", 2);
 		if( t != 0){
 		saveHistory();
 		saveHistoryFile();
 		}
-
 		if(t == 0 || k==0){
-			historyCommand();
+		historyCommand();
 		}
-		else tokenise()	;
+		else tokenise() ;
 
 	}
 
