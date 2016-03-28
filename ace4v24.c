@@ -505,6 +505,19 @@ void getInput(){
 		if(fgets(input, MAX, stdin) == NULL){
 			exit(0);
 		}
+
+		for(int i = 0;i < 10;i++){
+			int len = strlen(input);
+			int ret = strncmp(input,aliasNames[i],len-1);
+				
+				
+			if(ret == 0){
+				strcpy(input,aliasCommands[i]);
+				
+			}
+		}
+
+
 		int t = strncmp(input, "!", 1);
 		int k = strncmp(input, "!-", 2);
 		if( t != 0){
