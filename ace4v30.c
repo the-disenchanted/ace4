@@ -23,9 +23,10 @@ char tInp[1000];
 
 char *inter[] = {"exit", "getpath", "setpath", "cd","history", "alias", "unalias"};
 
-void updateHistory(char c[MAX]);
+void updateHistory(char c[MAX]);/*function for updating history*/
 void exit(int status); /*function for exiting the program*/
 
+/*prints history*/
 void printHistory(){
 	int i;
 	int j;
@@ -43,7 +44,7 @@ void printHistory(){
 
 }
 
-void loadHistory(){		/*load history from file */
+void loadHistory(){/*load history from file */
 
 char loadPath[MAX];
 
@@ -98,7 +99,7 @@ else{
 }
 
 
-void updateHistory(char c[MAX]){   
+void updateHistory(char c[MAX]){  /*updates history file*/ 
 
 	if(historyCount < 20) {
 
@@ -158,13 +159,13 @@ void executeCMD(){
 	}	
 }
 
-void addAlias() {
+void addAlias() {/* adds an alias */
 	int i;
 	int inArray = 0;
 	char tempArray[1000];
 	int len;
 	
-	/*copies only the command to a temporary array */
+	/*copies only the command to a temporary array and not the name */
 	len = strlen(par[1]);
 	len = len + 7;
 	strncpy(tempArray,&tInp[len],MAX-4);
@@ -177,6 +178,7 @@ void addAlias() {
 				
 			}
 		}
+ 		/*Overwrites an alias*/
 		if(inArray == 1) {
 			for(int j = 0; j <10;j++){
 				int ret = strcmp(aliasNames[j],par[1]);
@@ -198,7 +200,7 @@ void addAlias() {
 }
 }
 
-void removeAlias() {
+void removeAlias() { /*removes an alias*/
 	int i;
 	int position = 0;
 	int inArray = 0;
@@ -239,7 +241,7 @@ void printAliases() {
 	if(aliasCounter == 0) {
 		printf("There are no aliases to display");
 	}
-	else {
+	else {	/*prints list of aliases next to their command*/
 		for(i = 0;i < aliasCounter;i++) {
 			printf("\n name: %s command: %s", aliasNames[i], aliasCommands[i]);
 		}
