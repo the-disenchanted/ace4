@@ -12,6 +12,12 @@
  * 
  * Version: ace4v30
  * 
+ *  Promise: We confirm that this submission is all my own work. 
+ *
+ *          (Signed)____________________________________________
+ * (Katie Reid, Carla Rankin, Rachel Maley,
+ * 	Stephen Corcoran, Stephen Gray)
+ * 
  * ******************************************************/
  
  /*******************************************************
