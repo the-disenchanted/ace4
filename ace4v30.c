@@ -1,3 +1,55 @@
+/********************************************************
+ * 
+ * Synopsis:
+ * 	The aim of this ace was to create a simple shell 
+ * 	in C.
+ * 
+ * File: ace4v30.c
+ * 
+ * Authors:
+ * 	Katie Reid, Carla Rankin, Rachel Maley,
+ * 	Stephen Corcoran, Stephen Gray
+ * 
+ * Version: ace4v30
+ * 
+ * ******************************************************/
+ 
+ /*******************************************************
+  * 
+  * Stage One: The aim of stage 1 was to prompt the user for 
+  * 	input, read that input and then parse it. Also if the 
+  * 	user were to type exit or <ctrl>D the shell would exit.
+  * 
+  * Stage Two: The aim of stage 2 was to execute external 
+  * 	commands the user input such as ls or clear. If 
+  * 	the user were to input nonsense an error message 
+  * 	should be returned. 
+  * 
+  * Stage Three: Stage three's aim was to set the current 
+  * 	working directory to home, and getting and setting 
+  * 	the path using getenv and setenv. The original path 
+  * 	should also be restored at the exit of the program.
+  * 
+  * Stage Four: The aim of stage 4 was to change the directory
+  * 	when the user input cd either with something after or without. 
+  * 
+  * Stage Five: The aim of stage 5 was adding commands to history, 
+  * 	invoking these commands from history and printing the history. 
+  * 
+  * Stage Six: The aim of stage 6 was to create a persisent history. 
+  * 	This was done by creating a .hist_list file which saved the
+  * 	users history upon exit ready to be used next time the user 
+  * 	opens the shell program. 
+  * 
+  * Stage Seven: The aim of stage 7 was to allow the user to set up
+  * 	aliases, remove these aliases, invoke them and the print out 
+  * 	all the aliases. 
+  * 
+  *		 Stage Eight was not attempted. 
+  * 
+  * ****************************************************************/
+
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -48,8 +100,8 @@ void loadHistory(){/*load history from file */
 
 char loadPath[MAX];
 
-strcpy(loadPath, getenv("HOME"));
-strcat(loadPath, "/.hist_list"); /*gets the path for users home dir*/
+strcpy(loadPath, getenv("HOME")); /*gets the path for users home dir*/
+strcat(loadPath, "/.hist_list"); 
 
 	FILE *fp;
 	char line[MAX];
@@ -136,7 +188,7 @@ void saveHistory(){
 
 
 
-void executeCMD(){
+void executeCMD(){ /*This executes any external commands the user enters*/
 
 	int status;
 	pid_t pid;
@@ -248,7 +300,14 @@ void printAliases() {
 	}
 }
 
-void runInternal(int m){
+/*This runs any internal commands that we have coded as they
+cannot be invoked using the executeCMD method as it does not 
+recoginise them. 
+
+The commands this method can invoke are, exit, getpath, setpath,
+cd, history, alias and  unalias. */
+
+void runInternal(int m){ 
 int result;
 
 	switch(m){
@@ -322,6 +381,10 @@ int result;
 	}
 }
 
+
+/* This recognises whether or not the user has entered anything at all
+ and if they have then checks if it is an internal command which will 
+ invoke runInternal, if it is not an internal command executeCMD is called.*/
 void run(){
 	int m;
 	int intersize = sizeof(inter)/sizeof(char *);
@@ -351,6 +414,9 @@ void invokeAlias() {
 		}
 	}	
 }
+
+/*This parses the users input and uses the tokeniser array to check 
+under what circumstances the input should be split into seperate tokens.*/
 
 void tokenise(){
 	char tokeniser[50] = "\t \n <>&|;";
@@ -474,6 +540,10 @@ else{
 	
 }
 
+/* This prints the pointer prompting the user for input 
+and then checks if the user has entered an alias a history 
+command or if the input should then be tokenised. */
+
 
 void getInput(){
 	
@@ -509,6 +579,8 @@ void getInput(){
 
 	}
 }
+
+/*Main method that is called when the program initiates*/
 
 
 int main(){
